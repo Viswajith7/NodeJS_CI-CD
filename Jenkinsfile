@@ -20,6 +20,12 @@ pipeline {
             }
         }
 
+          stage("Build imgae"){
+            steps{
+                sh 'docker build -t my-node-app:1.0 .'
+            }
+        }
+
         
     }
 }

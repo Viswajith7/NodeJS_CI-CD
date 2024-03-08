@@ -26,18 +26,16 @@ pipeline {
             }
         }
         
-       stage('Docker push'){
-    environment {
-        DOCKERHUB_USERNAME = credentials('viswajith790')
-        DOCKERHUB_PASSWORD = credentials('X5sjabwhaf')
-    }
-    steps{
-        sh 'docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
-        sh 'docker tag my-node-app:1.0 viswajith790/cicd'
-        sh 'docker push viswajith790/cicd'
-        sh 'docker logout'
-    }
-}
+        stage('Docker push'){
+            steps{
+                withCredentials([usernamePassword(credentialsId: 'docker_cred',passwordVariable: 'DOCKERHUB_PASSWORD',usernameVariable: 'DOCKERHUB_USERNAME')]){
+                    sh 'docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
+                    sh 'docker tag my-node-app:1.0 viswajith790/cicd'
+                    sh 'docker push viswajith790/cicd'
+                    sh 'docker logout'
+                }
+            }
+        }
 
 
         

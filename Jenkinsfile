@@ -28,8 +28,11 @@ pipeline {
         
         stage('Docker push'){
             steps{
-                withCredentials([usernamePassword(credentialsId: 'docker_cred',passwordVariable: 'DOCKERHUB_PASSWORD',usernameVariable: 'DOCKERHUB_USERNAME')]){
-                    sh 'docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
+                withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'dockerhubpwd')]) {
+                sh 'docker login -u viswajith790 -p {dockerhubpwd}'
+    
+}
+                    
                     sh 'docker tag my-node-app:1.0 viswajith790/cicd'
                     sh 'docker push viswajith790/cicd'
                     sh 'docker logout'

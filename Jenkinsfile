@@ -35,9 +35,14 @@ pipeline {
     
         }
                     
-                    sh 'docker tag my-node-app:1.0 viswajith790/cicd:1.0'
-                    sh 'docker push viswajith790/cicd:1.0'
+                    sh 'docker tag my-node-app:1.0 viswajith790/cicd'
+                    sh 'docker push viswajith790/cicd'
                     sh 'docker logout'
+                }
+            }
+        
 
+
+        
     }
 }
